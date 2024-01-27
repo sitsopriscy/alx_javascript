@@ -4,8 +4,8 @@
  * You are not allowed to use var
 */
 
-function add (num1, num2) {
-    return num1 + num2
+function add (a, b) {
+    return a + b
   }
   
   module.exports = { add }
