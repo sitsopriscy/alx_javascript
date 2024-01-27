@@ -1,10 +1,8 @@
 // Write a file that modifies the value of myVar to 333
 
-const myObject = {
-    type: 'object',
-    value: 89
-  };
 
-  myObject.value = 333
 
-  console.log(myObject);
+myVar = 89
+myVar = 333
+require('./100-let_me_const')
+console.log(myVar)
