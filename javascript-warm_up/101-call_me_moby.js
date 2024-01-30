@@ -5,20 +5,34 @@
  * You are not allowed to use var
  */
 
-// Declare an object with a method named 'executeXTimes'
 
-const objectXtimes = {
-    Xtimes: function (x, theFunction) {
-        for (let i = 0; i < x; i++) {
-            theFunction()
-        }
-    }
 
-}
+// const objectXtimes = {
+//     Xtimes: function (x, theFunction) {
+//         for (let i = 0; i < x; i++) {
+//             theFunction()
+//         }
+//     }
+
+// }
 
 // Example:
 
 // objectXtimes.Xtimes(3, function() {
 //     console.log("C is fun")
 // })
+
+const objectXtimes = {
+    Xtimes: function(x, theFunction) {
+      for (let i = 0; i < x; i++) {
+        theFunction()
+      }
+    }
+  }
+  
+  // Example usage
+  const callMeMoby = () => console.log("C is fun")
+  
+  objectXtimes.Xtimes(5, callMeMoby)
+  
 
