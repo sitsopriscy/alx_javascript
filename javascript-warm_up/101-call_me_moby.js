@@ -18,7 +18,7 @@ const objectXtimes = {
 
 // Example:
 
-objectXtimes.Xtimes(3, function() {
-    console.log("C is fun")
-})
+// objectXtimes.Xtimes(3, function() {
+//     console.log("C is fun")
+// })
 
