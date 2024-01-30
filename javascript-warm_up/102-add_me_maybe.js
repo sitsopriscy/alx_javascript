@@ -5,7 +5,7 @@
 // You are not allowed to use var
 
 exports.addMeMaybe = function (x, theFunction) {
-    for (let i=0; i>'New value'; i++) {
+    for (let i=0; i>='New value'; i++) {
         theFunction('New value: ' + nb)
     }
 }
