@@ -4,11 +4,9 @@
  * You are not allowed to use var
 */
 
-add = function (a, b){
-  return a+b
-}
-
-
-// const addNum = add(4, 5)
-// console.log(addNum)
+function add (a, b) {
+    return a + b
+  }
+  
+  module.exports = { add }
 
