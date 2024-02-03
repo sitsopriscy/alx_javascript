@@ -1,0 +1,1 @@
+This is a directory for my JavaScript - Network project.
