@@ -6,8 +6,19 @@
 // const request = require('request')
 
 const request = require('request')
-const endpoint = 'http://google.com/img.png'
+const url = process.argv[2]
 
-request(endpoint, function (error, response, body) {
-    console.log(response.statusCode)
-})
+if (!url) {
+    console.error('Usage: node 0-statuscode.js <URL>');
+    process.exit(1);
+  }
+
+request.get(url, (error, response) => {
+  if (error) {
+    console.error(`Error: ${error.message}`);
+    process.exit(1);
+  }
+
+  // Display the status code
+  console.log(`code: ${response.statusCode}`);
+});
