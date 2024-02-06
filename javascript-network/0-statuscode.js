@@ -6,8 +6,8 @@
 // const request = require('request')
 
 const request = require('request')
-request
-  .get('http://google.com/img.png')
-  .on('response', function(response) {
+const endpoint = 'http://google.com/img.png'
+
+request(endpoint, function (error, response, body) {
     console.log(response.statusCode)
-  })
+})
