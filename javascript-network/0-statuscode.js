@@ -7,11 +7,6 @@ const request = require('request')
 
 const url = process.argv[2]
 
-// if (!url) {
-//     console.error('Usage: node 0-statuscode.js <URL>')
-//     process.exit(1);
-// }
-
-request.get(url, (error, response) => {
-    console.log(`code: ${response.statusCode}`)
+request.get(url, (error, response, body) => {
+    console.log(response.statusCode)
 });
