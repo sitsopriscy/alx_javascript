@@ -4,16 +4,22 @@
 // The file must be UTF-8 encoded
 // You must use the module request
 
-const request = require('request')
-const fs = require('fs')
+const fs = require("fs")
+const request = require("request")
 
 const url = process.argv[2]
-const filePath = process.argv[3]
+const file_path = process.argv[3]
 
 request(url, function (error, response, body) {
     if (error) {
-        console.error(error.message)
+        console.error(error)
+        return;
     }
-    fs.writeFile(filePath, body, 'utf-8')
 
+    fs.writeFile(file_path, body, "utf8", function (error) {
+        if (error) {
+            console.error(error)
+            return
+        }
+    })
 })
