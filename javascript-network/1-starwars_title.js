@@ -4,11 +4,17 @@
 // You must use the module request
 
 const request = require("request")
-const id = process.argv[2]
-const endpoint = 'https://swapi-api.alx-tools.com/api/films/+id/'
+const movieId = process.argv[2]
+
+const endpoint = `https://swapi-api.alx-tools.com/api/films/${movieId}/`
 
 request.get(endpoint, function (error, response, body) {
+    if (error) {
+        return console.error(error);
+    }
+    
     const movieTitle = JSON.parse(body)
     console.log(movieTitle.title)
 })
+
 
