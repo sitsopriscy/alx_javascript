@@ -8,7 +8,7 @@ const request = require("request")
 const movieID = process.argv[2]
 const url = `https://swapi-api.alx-tools.com/api/films/${movieID}`
 
-if (movieID > 2) {
+if (movieID > 0) {
     request(url, function (error, response, body) {
         if (error) {
             return console.error(error)
