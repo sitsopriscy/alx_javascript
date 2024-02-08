@@ -9,10 +9,6 @@ const movieId = process.argv[2]
 const endpoint = `https://swapi-api.alx-tools.com/api/films/${movieId}/`
 
 request.get(endpoint, function (error, response, body) {
-    if (error) {
-        return console.error(error);
-    }
-    
     const movieTitle = JSON.parse(body)
     console.log(movieTitle.title)
 })
