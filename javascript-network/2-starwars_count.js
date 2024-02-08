@@ -16,7 +16,7 @@ request.get(endpoint, function (error, response, body) {
         const filmsData = JSON.parse(body)
         filmsData.results.forEach(function (film) {
             film.characters.forEach(function (character) {
-                if (character.includes(`/${characterId}/`)) {
+                if (character.includes(characterId)) {
                     count += 1
                 }
             })
