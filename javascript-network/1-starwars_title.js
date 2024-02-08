@@ -4,10 +4,10 @@
 // You must use the module request
 
 const request = require("request")
-const endpoint = 'https://swapi-api.alx-tools.com/api/films/+id'
+const endpoint = `https://swapi-api.alx-tools.com/api/films/${movieID}/`
 
 request.get(endpoint, function (error, response, body) {
-    const bodyMovie = JSON.parse(body)
-    console.log(bodyMovie.title)
+    const movieTitle = JSON.parse(body)
+    console.log(movieTitle.title)
 })
 
