@@ -5,17 +5,16 @@
 
 const request = require('request');
 const apiUrl = process.argv[2];
-const endpoint = 'https://swapi-api.alx-tools.com/api/films/'
 const characterId = 18;
 let count = 0;
 
-request.get(endpoint, (error, response, body) => {
+request.get(apiUrl, function (error, response, body) {
     if (error) {
         console.error(error.message);
     } else {
         const movieData = JSON.parse(body)
-        movieData.results.forEach((film) => {
-            film.characters.forEach((character) => {
+        movieData.results.forEach(function (movie) {
+            movie.characters.forEach(function (character) {
                 if (character.includes(characterId)) {
                     count += 1;
                 }
