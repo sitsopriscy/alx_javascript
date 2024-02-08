@@ -4,7 +4,7 @@
 // You must use the module request
 
 const request = require('request')
-const url = 'https://jsonplaceholder.typicode.com/todos'
+const url = process.argv[2]
 
 request.get(url, function (error, response, body) {
     if (error) {
@@ -12,11 +12,10 @@ request.get(url, function (error, response, body) {
         return
     } else {
         const listTodos = JSON.parse(body)
-        // console.log(listTodos)
+       
 
         const completedTasksByUser = {}
 
-        // Iterate through tasks and count completed tasks by user id
         listTodos.forEach(function (task) {
             if (task.completed) {
                 if (completedTasksByUser[task.userId]) {
