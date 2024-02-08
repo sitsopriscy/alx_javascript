@@ -4,7 +4,7 @@
 // You must use the module request
 
 const request = require("request")
-const iid = process.argv[2]
+const id = process.argv[2]
 const endpoint = 'https://swapi-api.alx-tools.com/api/films/+id/'
 
 request.get(endpoint, function (error, response, body) {
