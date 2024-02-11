@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Creating and Removing Elements</title>
+    <style>
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="container"></div>
+
+    <button id="toggleButton">Toggle Paragraph</button>
+
+    <script>
+        const paragraph = document.getElementById('container')
+        const newParagraph = document.createElement('p')
+        newParagraph.textContent = ('New paragraph')
+        container.appendChild(newParagraph)
+
+        const forToggleButton = document.getElementById('toggleButton')
+        forToggleButton.addEventListener('click', function () {
+            newParagraph.classList.toggle('hidden')
+        })
+    </script>
+
+</body>
+
+</html>
