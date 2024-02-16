@@ -1,0 +1,94 @@
+<!-- Install your development environment:
+
+Installwebpack-dev-server by running npm install webpack-dev-server --save-dev (if you have some errors of missing dependencies, install these packages: npm i -D webpack and npm i -D webpack-cli)
+Create an empty file src/index.js
+Run your server with node_modules/.bin/webpack-dev-server
+In a file 0-index.html, create a basic html template:
+
+Add two text inputs, with the id firstname and email
+Add one button with the text “Log me in” that will call the function setCookies
+Add one button with the text “Show the cookies” that will call the function showCookies
+Create a function setCookies:
+
+It should set the cookie firstname with the value in the firstname input
+It should set the cookie email with the value in the email input
+Create a function showCookies:
+
+It should create a DOM element p
+It should set the inner html with Cookies: and the value of the cookie
+It should append the paragraph at the bottom of the page -->
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HTTP Cookies</title>
+    <style>
+        body {
+            align-items: center;
+
+        }
+
+        .login_details {
+            display: flex;
+            align-items: center;
+            gap: 2px;
+        }
+
+        #firstname,
+        #email,
+        .login_details button {
+            width: 30%;
+        }
+
+        button,
+        ::placeholder {
+            font-size: x-small;
+        }
+
+        h1 {
+            font-size: medium;
+        }
+    </style>
+</head>
+
+<body>
+    <section class="login">
+        <h1>Login to the website</h1>
+        <div class="login_details">
+            <input type="name" id="firstname" placeholder="Firstname">
+            <input type="email" id="email" placeholder="Email">
+            <button onclick="setCookies()">Log me in</button>
+        </div>
+    </section>
+
+    <section class="cookies">
+        <h1>Cookies</h1>
+        <button onclick="showCookies()">Show the cookies</button>
+    </section>
+
+    <script>
+        function setCookies(){
+            const firstname = document.getElementById('firstname').value
+            const email = document.getElementById('email').value
+
+            document.cookie = `Firstname=${firstname}`
+            document.cookie = `Email=${email}`
+            
+        }
+
+        function showCookies() {
+            const paragraph = document.createElement('p')
+            paragraph.textContent = `Cookies: ${document.cookie}`
+            document.body.appendChild(paragraph)
+
+        }
+    
+    </script>
+
+</body>
+
+</html>
