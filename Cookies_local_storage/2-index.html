@@ -1,0 +1,99 @@
+<!-- In a file 2-index.html:
+
+Reuse the code of the previous task
+
+Create a function getCookie:
+
+It accepts name as argument
+It should return the value of the cookie with the name passed in argument
+If the cookie does not exist, it should return an empty string
+Modify the function showCookies:
+
+It should display the paragraph Email: EMAIL - Firstname: FIRSTNAME -->
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HTTP Cookies</title>
+    <style>
+        body {
+            align-items: center;
+
+        }
+
+        .login_details {
+            display: flex;
+            align-items: center;
+            gap: 2px;
+        }
+
+        #firstname,
+        #email,
+        .login_details button {
+            width: 30%;
+        }
+
+        button,
+        ::placeholder {
+            font-size: x-small;
+        }
+
+        h1 {
+            font-size: medium;
+        }
+    </style>
+</head>
+
+<body>
+    <section class="login">
+        <h1>Login to the website</h1>
+        <div class="login_details">
+            <input type="name" id="firstname" placeholder="Firstname">
+            <input type="email" id="email" placeholder="Email">
+            <button onclick="setCookies()">Log me in</button>
+        </div>
+    </section>
+
+    <section class="cookies">
+        <h1>Cookies</h1>
+        <button onclick="showCookies()">Show the cookies</button>
+    </section>
+
+    <script>
+        function setCookies() {
+            const firstname = document.getElementById('firstname').value
+            const email = document.getElementById('email').value
+            const expireDate = new Date()
+            expireDate.setDate(expireDate.getDate() + 10)
+
+            document.cookie = `Firstname=${firstname}; expires=${expireDate.toUTCString()}; path=/`
+            document.cookie = `Email=${email}; expires=${expireDate.toUTCString()}; path=/`
+
+        }
+
+        function getCookie(name) {
+            if (!name) {
+                return ' '
+            }
+            else return name.value
+        }
+
+        function showCookies() {
+            const paragraph = document.createElement('p')
+            const emailValue = getCookie(email)
+            const firstnameValue = getCookie(firstname)
+            paragraph.textContent= `Email: ${emailValue} - Firstname: ${firstnameValue}`
+            document.body.appendChild(paragraph)
+
+        }
+
+
+
+    </script>
+
+</body>
+
+</html>
