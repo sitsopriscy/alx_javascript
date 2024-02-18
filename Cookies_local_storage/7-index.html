@@ -1,0 +1,149 @@
+<!-- In a new file, let’s build a more advanced cart system using Session Storage. Setup your files with the following:
+
+Create an array availableItems that will contain all the available items. Add the strings Shampoo, Soap, Sponge, and Water to the array
+If session storage is not enabled on your browser, display an alert that will contain the message Sorry, your browser does not support Web storage. Try again with a better one
+If session storage is available it should allow the user to see the application and call the function createStore and displayCart
+Create a function getCartFromStorage:
+
+It should parse a string into a JSON object, returning the content of the cart stored in Session storage
+If there is no cart, it should return an empty object
+Create a function addItemToCart:
+
+It accepts item(string) as argument
+It adds to the cart object the item
+If the same item is added multiple times, the cart store the quantity
+It stores the value of the cart object in a string for the key cart in the Session Storage
+It calls displayCart
+Create a function removeItemfromCart:
+
+It accepts item(string) as argument
+It remove the entire item from the cart
+Store the value of the cart object in a string for the key cart in the Session Storage
+It calls displayCart
+Create a function clearCart:
+
+It should clear the entire Session storage
+it calls displayCart
+Create a function createStore:
+
+It should add a h2 tag with the text Available products:
+It should add a list with every item available for purchase
+When the user click on an item, it should add it to the cart
+Create a function displayCart:
+
+It should add inside a h2 tag with the text Your cart:
+It should add an empty div tag
+If the div tag already exist, it should remove any list child
+It calls updateCart
+Create a function updateCart:
+
+It should add a list to the div tag created previously
+If the cart is empty, it should add an item Your cart is empty
+If the cart is not empty, it should add the list of items within the cart with the following format: ITEM_NAME x QUANTITY (remove)
+When the user clicks on remove, it should call the function removeItemfromCart
+At the top of the cart, add an item named Clear my cart. When the user clicks on it, it should call the function clearCart -->
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Advanced Shopping Cart</title>
+</head>
+
+<body>
+    <script>
+        const availableItems = ["Shampoo", "Soap", "Sponge", "Water"]
+
+        document.addEventListener("DOMContentLoaded", function () {
+            if (sessionStorageEnabled()) {
+                createStore()
+                displayCart()
+            } else {
+                alert(
+                    "Sorry, your browser does not support Session storage. Try again with a better one"
+                )
+            }
+        })
+
+        function sessionStorageEnabled() {
+            return typeof sessionStorage !== "undefined"
+        }
+
+        function getCartFromStorage() {
+            const cartString = sessionStorage.getItem("cart")
+            return cartString ? JSON.parse(cartString) : {}
+        }
+
+        function addItemToCart(item) {
+            const cart = getCartFromStorage()
+            cart[item] = cart[item] ? cart[item] + 1 : 1
+            sessionStorage.setItem("cart", JSON.stringify(cart))
+            displayCart()
+        }
+
+        function removeItemFromCart(item) {
+            const cart = getCartFromStorage()
+            delete cart[item]
+            sessionStorage.setItem("cart", JSON.stringify(cart))
+            displayCart()
+        }
+
+        function clearCart() {
+            sessionStorage.removeItem("cart")
+            displayCart()
+        }
+
+        function createStore() {
+            const h2 = document.createElement("h2")
+            h2.textContent = "Available products:"
+            document.body.appendChild(h2)
+
+            const ul = document.createElement("ul")
+            availableItems.forEach((item) => {
+                const li = document.createElement("li")
+                li.textContent = item
+                li.addEventListener("click", () => addItemToCart(item))
+                ul.appendChild(li)
+            })
+            document.body.appendChild(ul)
+        }
+
+        function displayCart() {
+            const cart = getCartFromStorage()
+            let cartDiv = document.getElementById("cart")
+            if (!cartDiv) {
+                cartDiv = document.createElement("div")
+                cartDiv.id = "cart"
+                document.body.appendChild(cartDiv)
+            }
+
+            cartDiv.innerHTML = "<h2>Your cart:</h2>"
+
+            const list = document.createElement("ul")
+            if (Object.keys(cart).length === 0) {
+                const emptyCartMessage = document.createElement("li")
+                emptyCartMessage.textContent = "Your cart is empty"
+                list.appendChild(emptyCartMessage)
+            } else {
+                for (const [item, quantity] of Object.entries(cart)) {
+                    const listItem = document.createElement("li")
+                    listItem.textContent = `${item} x ${quantity} `
+                    listItem.innerHTML += `<span onclick="removeItemFromCart('${item}')"> (remove)</span>`
+                    list.appendChild(listItem)
+                }
+            }
+
+            const clearButton = document.createElement("span")
+            clearButton.textContent = "Clear my cart"
+            clearButton.onclick = clearCart
+            list.insertBefore(clearButton, list.firstChild)
+
+            cartDiv.appendChild(list)
+        }
+    </script>
+</body>
+
+</html>

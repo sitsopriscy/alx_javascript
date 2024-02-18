@@ -1,0 +1,80 @@
+<!-- Let’s build a basic shopping cart in a new file. Setup your files with the following:
+
+Create an array availableItems that will contain all the available items. Add the strings Shampoo, Soap, Sponge, and Water in the array
+If Local storage is not enabled on your browser, display an alert that will contain the message Sorry, your browser does not support Web storage. Try again with a better one
+If local storage is available it should allow the user to see the application and call the function createStore and displayCart
+Create a function addItemToCart:
+
+It takes on argument item (string)
+It adds a key to the local storage of the name of the item, and set the value to true
+Create a function createStore:
+
+Create a ul and append it to the DOM
+Loop through the array of items, and create a list item to add to the ul
+The item should display the name of the available product
+On click the item should call the function addItemToCart
+Create a function displayCart:
+
+If the local storage does not contain any item, this function does not do anything
+If the local storage contains any item, it should display the message You previously had X items in your cart in a p element that you can append to the body
+Tips:
+
+At this time, you should be able to see the list of available items
+If you click on two of them and refresh the browser, you should see the message You previously had 2 items in your cart
+If you open a new tab, you should also see the message You previously had 2 items in your cart -->
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Shopping Cart</title>
+  </head>
+  <body>
+    <script>
+      const availableItems = ["Shampoo", "Soap", "Sponge", "Water"]
+
+      document.addEventListener("DOMContentLoaded", function () {
+        if (localStorageEnabled()) {
+          createStore()
+          displayCart()
+        } else {
+          alert(
+            "Sorry, your browser does not support Web storage. Try again with a better one"
+          )
+        }
+      })
+
+      function localStorageEnabled() {
+        return typeof Storage !== "undefined"
+      }
+
+      function addItemToCart(item) {
+        localStorage.setItem(item, true)
+        displayCart()
+      }
+
+      function createStore() {
+        const ul = document.createElement("ul")
+        availableItems.forEach((item) => {
+          const li = document.createElement("li")
+          li.textContent = item
+          li.addEventListener("click", () => addItemToCart(item))
+          ul.appendChild(li);
+        })
+        document.body.appendChild(ul)
+      }
+
+      function displayCart() {
+        const cart = Object.keys(localStorage)
+        const paragraph = document.createElement("p")
+        if (cart.length > 0) {
+          paragraph.textContent = `You previously had ${cart.length} items in your cart`
+        } else {
+          paragraph.textContent = "Your cart is empty"
+        }
+        document.body.appendChild(paragraph)
+      }
+    </script>
+  </body>
+</html>

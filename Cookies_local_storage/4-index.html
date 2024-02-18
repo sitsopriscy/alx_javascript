@@ -1,32 +1,12 @@
-<!-- in a file 3-index.html, reuse your code from the previous task
+<!-- Reusing the code from the previous task:
 
-add a div in html that will contain the login form:
-
-You can reuse the one you previously wrote
-It has one h2
-It has two text inputs
-It has one button
-Write a function named showForm:
-
-It should remove the Welcome message if it exists
-It should show the form
-Write a function named hideForm:
-
-It should hide the form
-Write a function named deleteCookiesAndShowForm:
-
-It should remove the two cookies
-it should show the form by calling the showForm function
-Write a function named showWelcomeMessageOrForm:
-
-if user is not logged in, the function showForm is called
-If the user is logged in, replace the body of the page with a h1
-It should display Welcome FIRSTNAME (logout)
-(logout) should be a link
-The link font should be display in normal weight, italic, and 10px to the right of the message
-On click, call the function deleteCookiesAndShowForm, hide the welcome message, and show the form -->
+Add js-cookie to your html page using the jsdelivr CDN
+Delete the getCookie function and use js-cookie get function instead
+Use js-cookie remove function within deleteCookiesAndShowForm function
+Use js-cookie set function within setCookiesAndShowWelcomeMessage function (new function that sets cookies and calls showWelcomeMessageOrForm) -->
 
 
+<!-- 3-index.html -->
 <!DOCTYPE html>
 <html lang="en">
 
@@ -35,10 +15,9 @@ On click, call the function deleteCookiesAndShowForm, hide the welcome message, 
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>HTTP Cookies</title>
 
-  <style>
+    <style>
         body {
             align-items: center;
-
         }
 
         .login_details {
@@ -63,6 +42,8 @@ On click, call the function deleteCookiesAndShowForm, hide the welcome message, 
         }
     </style>
 
+    <!-- Add js-cookie to the page -->
+    <script src="https://cdn.jsdelivr.net/npm/js-cookie@3.0.1/dist/js.cookie.min.js"></script>
 </head>
 
 <body>
@@ -71,18 +52,20 @@ On click, call the function deleteCookiesAndShowForm, hide the welcome message, 
         <div class="login_details">
             <input type="text" id="firstname" placeholder="Firstname" />
             <input type="text" id="email" placeholder="Email" />
-            <button onclick="setCookies()">Log me in</button><br />
+            <button onclick="setCookiesAndShowWelcomeMessage()">Log me in</button><br />
         </div>
-
     </div>
-    <div class="container" id="welcome-message" style="display: none"></div>
-    <script>
-        function setCookies() {
-            const firstname = document.getElementById("firstname").value;
-            const email = document.getElementById("email").value;
 
-            document.cookie = `firstname=${firstname}; expires=Fri, 23 February 2024 12:00:00 GMT;`;
-            document.cookie = `email=${email}; expires=Fri, 23 February 2024 12:00:00 GMT;`;
+    <div class="container" id="welcome-message" style="display: none"></div>
+
+    <script>
+        function setCookiesAndShowWelcomeMessage() {
+            const firstname = document.getElementById("firstname").value
+            const email = document.getElementById("email").value
+
+            // Use js-cookie set function
+            Cookies.set('firstname', firstname, { expires: new Date('Fri, 23 February 2024 12:00:00 GMT') })
+            Cookies.set('email', email, { expires: new Date('Fri, 23 February 2024 12:00:00 GMT') })
 
             showWelcomeMessageOrForm()
         }
@@ -98,7 +81,7 @@ On click, call the function deleteCookiesAndShowForm, hide the welcome message, 
                 if (name === "firstname" || name === "email") {
                     paragraph.textContent += `${name}: ${value}, `
                 }
-            })
+            });
 
             paragraph.textContent = paragraph.textContent.slice(0, -2)
 
@@ -106,16 +89,8 @@ On click, call the function deleteCookiesAndShowForm, hide the welcome message, 
             document.body.appendChild(cookieContainer)
         }
 
-        function getCookie(name) {
-            if (!name) {
-                return " "
-            }
-            return name.value
-        }
-
         function showForm() {
-            const welcomeMessageContainer =
-                document.getElementById("welcome-message")
+            const welcomeMessageContainer = document.getElementById("welcome-message")
             welcomeMessageContainer.style.display = "none"
             document.getElementById("login-form").style.display = "block"
         }
@@ -125,8 +100,10 @@ On click, call the function deleteCookiesAndShowForm, hide the welcome message, 
         }
 
         function deleteCookiesAndShowForm() {
-            document.cookie = "firstname=; expires=Thu, 01 Jan 1970 00:00:00 GMT;"
-            document.cookie = "email=; expires=Thu, 01 Jan 1970 00:00:00 GMT;"
+            // Use js-cookie remove function
+            Cookies.remove('firstname')
+            Cookies.remove('email')
+
             showForm()
         }
 
@@ -142,11 +119,10 @@ On click, call the function deleteCookiesAndShowForm, hide the welcome message, 
                     loggedIn = true
                     firstname = value
                 }
-            })
+            });
 
             if (loggedIn) {
-                const welcomeMessageContainer =
-                    document.getElementById("welcome-message")
+                const welcomeMessageContainer = document.getElementById("welcome-message")
                 welcomeMessageContainer.innerHTML = `<h1>Welcome ${firstname} <a href="#" onclick="deleteCookiesAndShowForm()"> (logout)</a></h1>`
                 welcomeMessageContainer.style.display = "block"
                 document.getElementById("login-form").style.display = "none"

@@ -1,0 +1,67 @@
+<!-- Reusing the code from the previous task, replace the use of local storage by session storage
+
+Tips:
+
+At this time, you should be able to see the list of available items
+If you click on two of them and refresh the browser, you should see the message You previously had 2 items in your cart
+If you open a new tab, you should not see any message -->
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Shopping Cart</title>
+</head>
+
+<body>
+    <script>
+        const availableItems = ["Shampoo", "Soap", "Sponge", "Water"]
+
+        document.addEventListener("DOMContentLoaded", function () {
+            if (sessionStorageEnabled()) {
+                createStore()
+                displayCart()
+            } else {
+                alert(
+                    "Sorry, your browser does not support Session storage. Try again with a better one"
+                )
+            }
+        })
+
+        function sessionStorageEnabled() {
+            return typeof sessionStorage !== "undefined"
+        }
+
+        function addItemToCart(item) {
+            sessionStorage.setItem(item, true)
+            displayCart()
+        }
+
+        function createStore() {
+            const ul = document.createElement("ul")
+            availableItems.forEach((item) => {
+                const li = document.createElement("li")
+                li.textContent = item
+                li.addEventListener("click", () => addItemToCart(item))
+                ul.appendChild(li)
+            })
+            document.body.appendChild(ul)
+        }
+
+        function displayCart() {
+            const cart = Object.keys(sessionStorage)
+            const paragraph = document.createElement("p")
+            if (cart.length > 0) {
+                paragraph.textContent = `You previously had ${cart.length} items in your cart`
+            } else {
+                paragraph.textContent = "Your cart is empty"
+            }
+            document.body.appendChild(paragraph)
+        }
+    </script>
+</body>
+
+</html>
