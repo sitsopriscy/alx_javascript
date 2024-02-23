@@ -1,0 +1,1 @@
+This is a directory for my html_js_validation project.
